@@ -1,0 +1,60 @@
+{
+    "app": {
+        "id": "MyAPP",
+        "title": "My APP",
+        "version": "1.0.0",
+        "port": 40018,
+        "hash_algorithm": "HS256",
+        "salt": "PLEASE_SET_35_LENGTH_SALT_CHARACTERS",
+        "allow_origins": [
+            "http://localhost:5173"
+        ],
+        "dburl": "mysql+pymysql://ID:PW@HOST_IP:PORT/DB_NAME",
+        "ssl": {
+            "key_path": "/cert/path/cert.key",
+            "cert_path": "/cert/path/cert.crt"
+        },
+        "logger": {
+            "version": 1,
+            "disable_existing_loggers": false,
+            "formatters": {
+                "default": {
+                    "format": "%(asctime)s [%(levelname)s]: %(message)s",
+                    "datefmt": "%Y-%m-%d %H:%M:%S"
+                }
+            },
+            "handlers": {
+                "console": {
+                    "class": "logging.StreamHandler",
+                    "formatter": "default",
+                    "stream": "ext://sys.stdout"
+                },
+                "file": {
+                    "class": "logging.handlers.TimedRotatingFileHandler",
+                    "formatter": "default",
+                    "filename": "log/app.log",
+                    "when": "midnight",
+                    "interval": 1,
+                    "encoding": "utf-8"
+                }
+            },
+            "loggers": {
+                "app": {
+                    "level": "DEBUG",
+                    "handlers": ["console", "file"],
+                    "propagate": false
+                },
+                "uvicorn.error": {
+                    "level": "INFO", 
+                    "handlers": ["console"], 
+                    "propagate": false
+                },
+                "uvicorn.access": {
+                    "level": "WARNING", 
+                    "handlers": ["console"], 
+                    "propagate": false
+                }
+            }
+        }
+    }
+}

@@ -3,8 +3,6 @@
     import Icon from '@iconify/svelte';
 
     let open = false;
-    let buttonPrimary = 'bg-[#0e639c] hover:bg-[#1177bb] active:bg-[#1177bb] focus:!border-none';
-    let buttonSecondary = 'bg-[#4d4d4d] hover:bg-[#636363] active:bg-[#3c3c3c] focus:!border-none';
 
     let type;
     let title;
@@ -21,7 +19,7 @@
             case 'warn':
                 title = '';
                 iconID = 'mdi:alert-octagon-outline';
-                iconColor = 'yellow';
+                iconColor = 'orange';
                 dismissable = true;
                 break;
 
@@ -70,7 +68,7 @@
     };
 </script>
 
-<Modal title="{title}" bind:open="{open}" size="xs" autoclose dismissable="{dismissable}" class="divide-y-0 rounded-none bg-[#424242] text-[#cccccc]">
+<Modal title="{title}" bind:open="{open}" size="xs" autoclose dismissable="{dismissable}" class="divide-y-0 rounded">
     <div class="flex flex-col gap-8">
         <div class="flex flex-row gap-4 pr-5">
             <Icon icon="{iconID}" color="{iconColor}" class="h-12 w-12" />
@@ -80,22 +78,16 @@
         </div>
         {#if type === 'input'}
             <div>
-                <input type="text" class="w-full text-xs text-black" />
+                <input type="text" class="input w-full" />
             </div>
         {/if}
         {#if type !== 'loading'}
             <div class="flex justify-end gap-2">
-                <button type="button" class="{buttonPrimary}" on:click="{(e) => handler?.onDialogButtonClicked('ok')}"> 확인 </button>
+                <button type="button" class="btn rounded" on:click="{(e) => handler?.onDialogButtonClicked('ok')}"> 확인 </button>
                 {#if ['confirm', 'input'].indexOf(type) > -1}
-                    <button type="button" class="{buttonSecondary}" on:click="{(e) => handler?.onDialogButtonClicked('cancel')}"> 취소 </button>
+                    <button type="button" class="btn btn-border rounded" on:click="{(e) => handler?.onDialogButtonClicked('cancel')}"> 취소 </button>
                 {/if}
             </div>
         {/if}
     </div>
 </Modal>
-
-<style lang="postcss">
-    button {
-        @apply items-center justify-center px-5 py-2.5 text-center text-sm font-medium;
-    }
-</style>

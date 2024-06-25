@@ -4,6 +4,7 @@
     import { goto } from '$app/navigation';
     import { Dropdown, DropdownItem, DropdownDivider, DarkMode } from 'flowbite-svelte';
     import Icon from '@iconify/svelte';
+    import logo from '$images/logo.png';
     import { menuItems } from './MenuItems.svelte';
 
     export let data;
@@ -40,7 +41,7 @@
         bind:this="{sidebarElem}">
         <div class="flex flex-col gap-3">
             <div class="flex w-full flex-row overflow-hidden whitespace-nowrap p-[6px]">
-                <Icon icon="devicon:svelte" class="h-7 min-h-7 w-7 min-w-7" />
+                <img src={logo} class="w-7 h-7" alt="logo" />
                 <span class="ml-4 self-center font-extrabold">{PUBLIC_APP_NAME}</span>
             </div>
             <div class="flex w-full flex-row justify-end" on:click="{toggleSidebar}" role="presentation">
@@ -78,7 +79,7 @@
                 containerClass="z-50 border-[1px] !border-neutral-300 !bg-neutral-200 !shadow-none dark:!border-black dark:!bg-neutral-900 text-sm font-light">
                 <DropdownItem defaultClass="!min-w-[150px] px-1">
                     <div class="rounded p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700">
-                        {data.user.email}
+                        {data.user.uid}
                     </div>
                 </DropdownItem>
                 <DropdownDivider divClass="my-1 h-px bg-neutral-300 dark:bg-black" />
