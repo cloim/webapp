@@ -1,0 +1,81 @@
+@tailwind utilities;
+@tailwind components;
+@tailwind base;
+
+@layer base {
+	html, body {
+		@apply h-full;
+		@apply bg-white text-neutral-600;
+		@apply dark:bg-black dark:text-neutral-300;
+	}
+
+	h1 {
+		@apply text-3xl;
+	}
+
+	h2 {
+		@apply text-2xl;
+	}
+
+	h3 {
+		@apply text-xl;
+	}
+
+	h4 {
+		@apply text-lg;
+	}
+
+	h5 {
+		@apply text-sm;
+	}
+
+	h6 {
+		@apply text-xs;
+	}
+
+	span {
+		@apply select-none;
+	}
+
+	*:disabled {
+		@apply cursor-not-allowed caret-transparent border-none;
+		@apply !bg-neutral-300 !text-neutral-400 hover:!bg-neutral-300;
+	}
+
+	*::-webkit-scrollbar {
+		width: 4px !important;
+		height: 4px !important;
+		background-color: transparent !important;
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background-color: #535353 !important;
+		border-radius: 20px !important;
+	}
+
+	*::-webkit-scrollbar-track {
+		background-color: transparent !important;
+	}
+
+	*::-webkit-scrollbar-corner {
+		background-color: transparent !important;
+	}
+}
+
+@layer components {
+	.input {
+		@apply !text-xs !ring-0 !rounded !outline-none;
+		@apply border-neutral-700 hover:border-orange-300;
+		@apply dark:bg-neutral-700;
+	}
+
+	.btn {
+        @apply px-3 leading-[2.3rem] text-xs font-extrabold border-none;
+        @apply text-white bg-sky-700 hover:!bg-sky-600 active:!bg-sky-600;
+	}
+
+	.btn-border {
+        @apply px-3 leading-[2.3rem] text-xs font-extrabold border-none;
+        @apply bg-white text-black hover:text-white border border-solid border-sky-700;
+	}
+}
