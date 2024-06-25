@@ -30,3 +30,8 @@ if APP_CONF is None:
 
     APP_CONF = config["app"]
     APP_CONF["env"] = args.env
+
+    log_file_path = "log/app.log"
+    if os.path.exists(log_file_path) is False:
+        os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
+        open(log_file_path, "w")
