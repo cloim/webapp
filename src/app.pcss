@@ -65,8 +65,14 @@
 @layer components {
 	.input {
 		@apply !text-xs !ring-0 !rounded !outline-none;
-		@apply border-neutral-700 hover:border-orange-300;
-		@apply dark:bg-neutral-700;
+		@apply !border-neutral-300 hover:!border-orange-300;
+		@apply dark:!bg-neutral-700 dark:!border-neutral-500 dark:hover:!border-orange-300;
+	}
+
+	.textarea {
+		@apply w-full h-9 !text-xs !ring-0 !rounded !outline-none resize-none;
+		@apply !border-neutral-300 hover:!border-orange-300;
+		@apply dark:!bg-neutral-700 dark:!border-neutral-500 dark:hover:!border-orange-300;
 	}
 
 	.btn {

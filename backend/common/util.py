@@ -47,7 +47,7 @@ def get_value_by_path(d: dict, path: str):
     return d
 
 
-async def is_json(obj: any):
+def is_json(obj: any):
     try:
         json.loads(obj)
         return True

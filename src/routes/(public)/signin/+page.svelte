@@ -33,7 +33,7 @@
         </div>
         <div class="flex flex-col gap-2">
             <input class="input" type="text" bind:value="{uid}" placeholder="ID" />
-            <input class="input" type="password" bind:value="{upw}" placeholder="Password" />
+            <input class="input" type="password" bind:value="{upw}" placeholder="Password" on:keydown="{(e) => e.key == 'Enter' && signin()}" />
             <button class="btn rounded" on:click="{signin}">Sign In</button>
             <button class="btn btn-border rounded" on:click="{signup}">Sign Up</button>
         </div>

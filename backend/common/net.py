@@ -14,7 +14,7 @@ async def get_json_body(request: Request):
 		if content_type == "application/json":
 			body = await request.body()
 			body_str = body.decode("utf-8")
-			if await is_json(body_str):
+			if is_json(body_str):
 				data = await request.json()
 			else:
 				data = dict((itm.split('=')[0],itm.split('=')[1]) for itm in body_str.split('&'))

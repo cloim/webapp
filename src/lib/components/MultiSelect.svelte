@@ -27,14 +27,18 @@
 
     let selectClass: string;
     $: {
+        const selectClassBase: string = 'relative flex justify-between gap-4 text-xs border rounded border-neutral-300';
+
         if (disabled) {
             selectClass = twMerge(
-                'relative flex justify-between text-xs cursor-not-allowed bg-[#d0d0d0] text-[#f9f9f9] border rounded border-[#bcbcbc]',
+                selectClassBase,
+                'cursor-not-allowed bg-neutral-300 text-neutral-400 hover:bg-neutral-300',
                 selectStyle
             );
         } else {
             selectClass = twMerge(
-                'relative flex justify-between text-xs cursor-pointer bg-white text-[#6b7280] border rounded border-[#d0d0d0] hover:border-[#f2af5c] focus:border-[#f2af5c]',
+                selectClassBase,
+                'cursor-pointer hover:border-orange-300 dark:!bg-neutral-700 dark:!border-neutral-500 dark:hover:!border-orange-300',
                 selectStyle
             );
         }
@@ -42,18 +46,19 @@
 
     let dropdownClass: string;
     $: dropdownClass = twMerge(
-        'absolute start-0 top-[calc(100%+5px)] flex flex-col gap-1 z-50 p-1 w-full max-h-64 overflow-y-scroll text-xs cursor-pointer bg-white text-[#6b7280] border rounded border-[#d0d0d0]',
+        'absolute start-0 top-[calc(100%+5px)] flex flex-col gap-1 z-50 p-1 w-full max-h-64 overflow-y-scroll text-xs font-medium cursor-pointer border rounded',
+        'border-neutral-300 bg-white dark:!border-neutral-500 dark:bg-neutral-700',
         dropdownStyle
     );
 
     let listItemClass: string;
-    $: listItemClass = twMerge('py-2 px-2 hover:text-black bg-white hover:bg-[#f2af5c]', listItemStyle);
+    $: listItemClass = twMerge('p-2 text-nowrap hover:text-black hover:bg-orange-300', listItemStyle);
 
     let listSelectedItemClass: string;
-    $: listSelectedItemClass = twMerge('bg-[#f2af5c] text-black hover:text-white', listSelectedItemStyle);
+    $: listSelectedItemClass = twMerge('bg-orange-300 text-black hover:text-white', listSelectedItemStyle);
 
     let selectedItemClass: string;
-    $: selectedItemClass = twMerge('bg-[#e7e7e7] text-[#6b7280]', selectedItemStyle);
+    $: selectedItemClass = twMerge('bg-neutral-200 text-neutral-600', selectedItemStyle);
 
     const selectOption = (select: SelectOptionType<any>) => {
         if (value.includes(select.value)) {
