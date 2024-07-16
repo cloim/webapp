@@ -117,42 +117,6 @@ export const formatCellPhoneNo = (cell_phone_no) => {
     return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
 }
 
-export const getTypeInfo = (apiTypes, api) => {
-    if (!api.type) return null;
-
-    const typeInfo = apiTypes.find(t => t.type_id === api.type);
-    if (!typeInfo) return null;
-
-    return {
-        typeType: typeInfo.type_type,
-        langID: typeInfo.lang_id,
-        tabSize: typeInfo.tab_size,
-        iconID: typeInfo.icon_id,
-        iconColor: typeInfo.icon_color || ""
-    }
-}
-
-export const setTypeInfo = (apiTypes, apis) => {
-    const newAPIs = [];
-
-    for (const api of apis) {
-        if (Object.hasOwn(api, "children")) {
-            const newAPI = {
-                id: api.id,
-                name: api.name
-            }
-            const childrens = setTypeInfo(apiTypes, api.children);
-            newAPI.children = childrens;
-            newAPIs.push(newAPI);
-        } else {
-            const typeInfo = getTypeInfo(apiTypes, api);
-            Object.assign(api, typeInfo);
-            newAPIs.push(api);
-        }
-    }
-    return newAPIs;
-}
-
 export const copyToClipboard = async (text) => {
     try {
         await navigator.clipboard.writeText(text);

@@ -16,7 +16,11 @@
     let multiSelectValue = ['err', 'input'];
 
     const handleClick = () => {
-        dialog.show(selectValue, `This is a ${selectValue} dialog.`, () => {});
+        dialog.show(selectValue, `This is a ${selectValue} dialog.`, {
+            onDialogButtonClicked: (btnID) => {
+                console.log(btnID);
+            }
+        });
     }
 </script>
 

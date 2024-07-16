@@ -6,7 +6,8 @@ from common.config_loader import conf
 from common.logger import d, ex
 
 
-engine = create_engine(conf("dburl"), pool_pre_ping=True, echo=False)
+engine = create_engine(conf("dburl"), echo=False, pool_size=10,
+                       max_overflow=20, pool_timeout=30, pool_recycle=1800, pool_pre_ping=True)
 SessionLocal = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
 

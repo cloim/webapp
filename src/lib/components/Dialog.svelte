@@ -66,12 +66,23 @@
     export const dismiss = () => {
         open = false;
     };
+
+    export const isShow = () => {
+        return open;
+    }
 </script>
 
-<Modal title="{title}" bind:open="{open}" size="xs" autoclose dismissable="{dismissable}" class="divide-y-0 rounded">
+<Modal title="{title}" 
+       bind:open="{open}" 
+       size="md" 
+       autoclose 
+       dismissable="{dismissable}" 
+       class="divide-y-0 rounded"
+       backdropClass="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 dark:bg-opacity-80"
+>
     <div class="flex flex-col gap-8">
         <div class="flex flex-row gap-4 pr-5">
-            <Icon icon="{iconID}" color="{iconColor}" class="h-12 w-12" />
+            <Icon icon="{iconID}" color="{iconColor}" class="h-12 w-12 min-h-12 min-w-12" />
             <p class="flex-1 self-center">
                 {@html message}
             </p>
@@ -85,7 +96,7 @@
             <div class="flex justify-end gap-2">
                 <button type="button" class="btn rounded" on:click="{(e) => handler?.onDialogButtonClicked('ok')}"> 확인 </button>
                 {#if ['confirm', 'input'].indexOf(type) > -1}
-                    <button type="button" class="btn btn-border rounded" on:click="{(e) => handler?.onDialogButtonClicked('cancel')}"> 취소 </button>
+                    <button type="button" class="btn-wire rounded" on:click="{(e) => handler?.onDialogButtonClicked('cancel')}"> 취소 </button>
                 {/if}
             </div>
         {/if}

@@ -1,28 +1,30 @@
-import { Get, Post } from "$lib/network.js";
+import { PUBLIC_APP_URI } from '$env/static/public';
 
-export async function GET({ cookies, request }) {
+export async function POST({ cookies, request }) {
     const token = cookies.get("token");
-    const url = new URL(request.url);
-    const method = url.searchParams.get("m");
-    const action = url.searchParams.get("a");
-    const param = JSON.parse(url.searchParams.get("p")) || {};
-
-    let res;
-    if (method == "GET") {
-        res = await Get(`${action}`, param, token);
-    } else if (method == "POST") {
-        res = await Post(`${action}`, param, token);
+    const req_data = await request.json();
+    
+    const options = {
+        method: req_data.m,
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
     }
 
-    const res_data = await res.json();
-    let msg = "";
-    let data;
-
-    if (res.status !== 200) {
-        msg = res_data.detail;
+    if (req_data.m == "POST" && req_data.p) {
+        options.body = JSON.stringify(req_data.p);
+    }
+    
+    let url;
+    if (req_data.m == "GET" && req_data.p) {
+        const query = Object.keys(req_data.p)
+            .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(req_data.p[key])}`)
+            .join('&');
+        url = `${PUBLIC_APP_URI}/${req_data.a}?${query}`;
     } else {
-        data = res_data;
+        url = `${PUBLIC_APP_URI}/${req_data.a}`;
     }
-
-    return new Response(JSON.stringify({ status: res.status, message: msg, data: data }));
+    
+    return await fetch(url, options);
 }

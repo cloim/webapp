@@ -15,30 +15,37 @@
     export let selectedItemStyle: string = '';
     export let placeholder: string = '';
 
-    let selectElem: HTMLSelectElement;
-    let selectItems: SelectOptionType<any>[] = items.filter((x) => value.includes(x.value));
-    let show: boolean = false;
-
     const sizes = {
         sm: 'px-2 py-1 min-h-[2.4rem]',
         md: 'px-3 py-1 min-h-[2.7rem]',
         lg: 'px-4 py-2 min-h-[3.2rem]'
     };
 
+    let show: boolean = false;    
+    let selectElem: HTMLSelectElement;
+    let selectItems: SelectOptionType<any>[];
+    $: {
+        selectItems = items.filter((x) => value.includes(x.value));
+    }
+
     let selectClass: string;
     $: {
-        const selectClassBase: string = 'relative flex justify-between gap-4 text-xs border rounded border-neutral-300';
+        const selectClassBase: string = 'relative flex justify-between gap-4 text-sm border rounded';
 
         if (disabled) {
             selectClass = twMerge(
                 selectClassBase,
-                'cursor-not-allowed bg-neutral-300 text-neutral-400 hover:bg-neutral-300',
+                'cursor-not-allowed',
+                'bg-primary-300 text-primary-400 border-primary-400',
                 selectStyle
             );
         } else {
             selectClass = twMerge(
                 selectClassBase,
-                'cursor-pointer hover:border-orange-300 dark:!bg-neutral-700 dark:!border-neutral-500 dark:hover:!border-orange-300',
+                'cursor-pointer',
+                'bg-white border-primary-400',
+                'dark:bg-primary-800 dark:border-primary-600',
+                'hover:border-accent-100',
                 selectStyle
             );
         }
@@ -46,19 +53,19 @@
 
     let dropdownClass: string;
     $: dropdownClass = twMerge(
-        'absolute start-0 top-[calc(100%+5px)] flex flex-col gap-1 z-50 p-1 w-full max-h-64 overflow-y-scroll text-xs font-medium cursor-pointer border rounded',
-        'border-neutral-300 bg-white dark:!border-neutral-500 dark:bg-neutral-700',
+        'absolute start-0 top-[calc(100%+5px)] flex flex-col gap-1 z-50 p-1 w-full max-h-64 overflow-y-scroll text-sm font-medium cursor-pointer border rounded',
+        'bg-white dark:bg-primary-800 border-primary-400 dark:border-primary-600',
         dropdownStyle
     );
 
     let listItemClass: string;
-    $: listItemClass = twMerge('p-2 text-nowrap hover:text-black hover:bg-orange-300', listItemStyle);
+    $: listItemClass = twMerge('p-2 text-nowrap hover:text-white hover:bg-accent-100', listItemStyle);
 
     let listSelectedItemClass: string;
-    $: listSelectedItemClass = twMerge('bg-orange-300 text-black hover:text-white', listSelectedItemStyle);
+    $: listSelectedItemClass = twMerge('bg-accent-200 text-primary-200 hover:text-white', listSelectedItemStyle);
 
     let selectedItemClass: string;
-    $: selectedItemClass = twMerge('bg-neutral-200 text-neutral-600', selectedItemStyle);
+    $: selectedItemClass = twMerge('bg-primary-200 text-primary-600', selectedItemStyle);
 
     const selectOption = (select: SelectOptionType<any>) => {
         if (value.includes(select.value)) {
@@ -127,7 +134,7 @@
                 </slot>
             {/each}
         {:else}
-            <span class="ml-1">
+            <span class="ml-1 text-primary-500">
                 {placeholder}
             </span>
         {/if}

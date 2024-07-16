@@ -32,14 +32,3 @@ def get_local_ip():
     finally:
         s.close()
     return IP
-
-
-def create_response(status_code: int, message: str = "", data: dict = None):
-    return JSONResponse(
-		{
-			"result": "OK" if status_code == 200 else "FAIL",
-			"message": message,
-   			"data": data
-		},
-		status_code=status_code
-	)

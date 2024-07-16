@@ -12,9 +12,9 @@ from routers.users import router as users_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    start()
+    await start()
     yield
-    exit()
+    await exit()
 
 
 app = FastAPI(
@@ -34,17 +34,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 app.include_router(users_router)
 
 
-def start():
+async def start():
     i("Starting...")
     init_db()
 
 
-def exit():
+async def exit():
     i("Exiting...")
 
 
@@ -52,7 +50,6 @@ if __name__ == "__main__":
     port = conf("port")
     ssl_key_path = conf("ssl.key_path")
     ssl_cert_path = conf("ssl.cert_path")
-
     logger_conf = conf("logger")
     
     try:
