@@ -19,7 +19,7 @@ async def signup(request: Request, db: Session = Depends(get_db)):
     params = await request.json()
     db_user = db.query(UserORM).filter(UserORM.uid == params["uid"]).first()
     if db_user:
-        raise HTTPException(status_code=400, detail="이미 존재하는 ID 입니다")
+        raise HTTPException(status_code=409, detail="이미 존재하는 ID 입니다")
 
     hashed_pw = pwd_context.hash(params["upw"])
     new_user = UserORM(
@@ -39,7 +39,10 @@ async def signup(request: Request, db: Session = Depends(get_db)):
 @router.post("/signin")
 async def signin(request: Request, db: Session = Depends(get_db)):
     params = await request.json()
-    db_user = db.query(UserORM).filter(UserORM.uid == params["uid"]).first()
+    db_user = db.query(UserORM).filter(
+        UserORM.status == "N",
+        UserORM.uid == params["uid"]
+    ).first()
 
     if not db_user or not verify_password(params["upw"], db_user.upw):
         raise HTTPException(

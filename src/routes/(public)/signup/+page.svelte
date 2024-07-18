@@ -14,10 +14,16 @@
         });
         const res_data = await res.json();
 
-        if (res.status == 200) {
-            goto('/');
-        } else {
+        if (res_data.status == 409) {
             dialog.show('err', res_data.detail);
+        } else if (res_data.status == 403) {
+            dialog.show('info', res_data.detail, {
+                onDialogButtonClicked: (btnID) => {
+                    goto('/');
+                }
+            });
+        } else {
+            goto('/');
         }
     };
 
