@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import { onMount, createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
 
     export let value: string = '';
     export let maxHeight: number = 200;
@@ -15,6 +17,8 @@
         if (textareaElem.scrollHeight > maxHeight) {
             textareaElem.style.overflowY = 'auto';
         }
+
+        dispatch('input', textareaElem.value);
     };
 
     onMount(() => {
