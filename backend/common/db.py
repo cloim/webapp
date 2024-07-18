@@ -24,5 +24,9 @@ def get_db():
     
     try:
         yield db
+    except Exception as e:
+        ex(e)
+        if db.is_active:
+            db.rollback()
     finally:
         db.close()
