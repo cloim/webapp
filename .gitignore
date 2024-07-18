@@ -8,6 +8,7 @@ node_modules
 .vercel
 /.svelte-kit
 /build
+package-lock.json
 
 # OS
 .DS_Store
@@ -21,4 +22,7 @@ vite.config.ts.timestamp-*
 log
 *.log
 
+# Env
 */config_*.json
+.env.*
+!.env.*.example
